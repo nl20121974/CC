@@ -17,7 +17,7 @@ namespace CC.Hubs
             return base.OnConnectedAsync();
         }
 
-        public override async Task OnDisconnectedAsync(Exception e)
+        public override async Task OnDisconnectedAsync(Exception? e)
         {
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
             if (e != null)
