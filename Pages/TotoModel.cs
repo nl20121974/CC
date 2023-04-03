@@ -12,10 +12,10 @@ namespace CC.Pages
         [Inject] NavigationManager? NavigationManager { get; set; }
 
         [CascadingParameter]
-        protected Task<AuthenticationState> AuthenticationStateTask { get; set; }
+        protected Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
         [Inject]
-        protected UserManager<IdentityUser> IdentityUserManager { get; set; }
+        protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
 
         // flag to indicate chat status
         protected bool _isChatting = false;
@@ -37,20 +37,24 @@ namespace CC.Pages
 
         override protected async Task OnInitializedAsync()
         {
+            if (AuthenticationStateTask == null)
+            {
+                throw new Exception("AuthenticationStateTask is null");
+            }
+            if (IdentityUserManager == null)
+            {
+                throw new Exception("IdentityUserManager is null");
+            }
             var user = (await AuthenticationStateTask).User;
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
-                var currentUser = await IdentityUserManager.GetUserAsync(user);
-                if (currentUser == null)
-                {
-                    throw new Exception("User is null");
-                }
+                var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
                 var currentUserId = currentUser.Id;
                 var currentUserEmail = currentUser.Email;
                 var currentUserPhone = currentUser.PhoneNumber;
                 var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
-                _username = currentUser.Email;
+                _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
             }
             else
             {
