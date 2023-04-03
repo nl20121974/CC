@@ -57,19 +57,19 @@ else
     private bool _isChatting = false;
 
     // name of the user who will be chatting
-    private string _username;
+    private string _username = string.Empty;
 
     // on-screen message
-    private string _message;
+    private string _message = string.Empty;
 
     // new message input
-    private string _newMessage;
+    private string _newMessage = string.Empty;
 
     // list of messages in chat
     private List<Message> _messages = new List<Message>();
 
-    private string _hubUrl;
-    private HubConnection _hubConnection;
+    private string _hubUrl = string.Empty;
+    private HubConnection? _hubConnection;
 
     public async Task Chat()
     {
@@ -126,10 +126,11 @@ else
         if (_isChatting)
         {
             await SendAsync($"[Notice] {_username} left chat room.");
-
-            await _hubConnection.StopAsync();
-            await _hubConnection.DisposeAsync();
-
+            if (_hubConnection != null)
+            {
+                await _hubConnection.StopAsync();
+                await _hubConnection.DisposeAsync();
+            }
             _hubConnection = null;
             _isChatting = false;
         }
@@ -139,6 +140,10 @@ else
     {
         if (_isChatting && !string.IsNullOrWhiteSpace(message))
         {
+            if (_hubConnection == null)
+            {
+                throw new NullReferenceException("_hubConnection is null");
+            }
             await _hubConnection.SendAsync("Broadcast", _username, message);
 
             _newMessage = string.Empty;
