@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace CC.Hubs
 {
@@ -13,6 +15,8 @@ namespace CC.Hubs
 
         public override Task OnConnectedAsync()
         {
+            var authenticated = Context.User.Identity.IsAuthenticated;
+            var user = Context.User.Identity.Name;
             Console.WriteLine($"{Context.ConnectionId} connected");
             return base.OnConnectedAsync();
         }
@@ -46,6 +50,19 @@ namespace CC.Hubs
         public string GetConnectionId()
         {
             return Context.ConnectionId;
+        }
+
+        private IIdentity getIdentity()
+        {
+            if (Context.User == null)
+            {
+                throw new Exception("Context.User is null");
+            }
+            if (Context.User.Identity == null)
+            {
+                throw new Exception("Context.User.Identity is null");
+            }
+            return Context.User.Identity;
         }
     }
 }

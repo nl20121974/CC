@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace CC.Hubs
+﻿namespace CC.Hubs
 {
     public class ConnectionMapping<T>
         where T : notnull
