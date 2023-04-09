@@ -8,17 +8,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CC.Data;
 
-[Table("User")]
-public partial class User
+public partial class Medium
 {
     [Key]
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(450)]
-    public string IdentityUserId { get; set; }
+    public int AlbumId { get; set; }
 
     [Required]
+    [StringLength(450)]
+    public string UserId { get; set; }
+
     [StringLength(50)]
-    public string Nickname { get; set; }
+    public string Name { get; set; }
+
+    public string Text { get; set; }
+
+    [ForeignKey("AlbumId")]
+    [InverseProperty("Media")]
+    public virtual Album Album { get; set; }
+
+    [InverseProperty("Media")]
+    public virtual ICollection<MediaTag> MediaTags { get; } = new List<MediaTag>();
 }

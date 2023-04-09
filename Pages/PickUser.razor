@@ -1,0 +1,13 @@
+﻿@page "/pickuser"
+@inherits Models.PickUserModel
+
+<h3>PickUser</h3>
+@if (Users != null)
+{
+    <ul>
+        @foreach (var user in Users)
+        {
+            <li>@user.Nickname</li>
+        }
+    </ul>
+}

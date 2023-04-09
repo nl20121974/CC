@@ -15,7 +15,27 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[User]",
+         "Name": "[dbo].[Album]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Media]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MediaTag]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Member]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Role]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RoleClaim]",
          "ObjectType": 0
       }
    ],

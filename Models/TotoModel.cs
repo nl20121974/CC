@@ -1,11 +1,10 @@
-﻿using CC.Data;
-using CC.Hubs;
+﻿using CC.Hubs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace CC.Pages
+namespace CC.Models
 {
     public class TotoModel : ComponentBase
     {
@@ -88,11 +87,7 @@ namespace CC.Pages
                 string baseUrl = NavigationManager.BaseUri;
 
                 _hubUrl = baseUrl.TrimEnd('/') + ChatHub.HubUrl;
-
-                _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(_hubUrl)
-                    .Build();
-
+                _hubConnection = new HubConnectionBuilder().WithUrl(_hubUrl).Build();
                 _hubConnection.On<string, string>("Broadcast", BroadcastMessage);
 
                 await _hubConnection.StartAsync();

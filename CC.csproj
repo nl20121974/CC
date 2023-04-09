@@ -8,10 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\ChatRoom.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.4" />
@@ -27,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\ChatRoom.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="Areas\Admin\Pages\" />
     <Folder Include="Components\" />
     <Folder Include="Helpers\" />
   </ItemGroup>

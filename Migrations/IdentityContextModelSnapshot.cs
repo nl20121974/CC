@@ -46,7 +46,7 @@ namespace CC.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("IdentityRole", (string)null);
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -71,7 +71,7 @@ namespace CC.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("IdentityRoleClaim", (string)null);
+                    b.ToTable("RoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -136,7 +136,7 @@ namespace CC.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("IdentityUser", (string)null);
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -161,7 +161,7 @@ namespace CC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdentityUserClaim", (string)null);
+                    b.ToTable("UserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -185,7 +185,7 @@ namespace CC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IdentityUserLogin", (string)null);
+                    b.ToTable("UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -200,7 +200,7 @@ namespace CC.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("IdentityUserRole", (string)null);
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -221,7 +221,7 @@ namespace CC.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("IdentityUserToken", (string)null);
+                    b.ToTable("UserToken", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

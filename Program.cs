@@ -1,7 +1,7 @@
 using CC.Areas.Identity;
-using CC.Data;
 using CC.Hubs;
 using CC.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,26 +11,30 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CCContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<CC.Data.CCContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddDbContextFactory<CC.Data.CCContext>(opt => opt.UseSqlServer(connectionString));
+//builder.Services.AddAuthentication()
+//   .AddGoogle(options =>
+//   {
+//       IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+//       options.ClientId = googleAuthNSection["ClientId"];
+//       options.ClientSecret = googleAuthNSection["ClientSecret"];
+//   })
+//   .AddMicrosoftAccount(microsoftOptions =>
+//   {
+//       microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
+//       microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
+//   });
 
-
-// Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//builder.Services.AddDbContext<DataContext>(options =>
-//    options.UseSqlServer(connectionString));
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<DataContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
+//builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

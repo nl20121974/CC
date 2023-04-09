@@ -13,10 +13,55 @@ public partial class CCContext : DbContext
     {
     }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Album> Albums { get; set; }
+
+    public virtual DbSet<MediaTag> MediaTags { get; set; }
+
+    public virtual DbSet<Medium> Media { get; set; }
+
+    public virtual DbSet<Member> Members { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<RoleClaim> RoleClaims { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Album>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<MediaTag>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Media).WithMany(p => p.MediaTags)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MediaTag_Media");
+        });
+
+        modelBuilder.Entity<Medium>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Album).WithMany(p => p.Media)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Media_Album");
+        });
+
+        modelBuilder.Entity<Member>(entity =>
+        {
+            entity.Property(e => e.Member1).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

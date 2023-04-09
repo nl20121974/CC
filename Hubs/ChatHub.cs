@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -7,18 +9,18 @@ namespace CC.Hubs
     public class ChatHub : Hub
     {
         public const string HubUrl = "/chat";
+        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
 
         public async Task Broadcast(string username, string message)
         {
             await Clients.All.SendAsync("Broadcast", username, message);
         }
 
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            var authenticated = Context.User.Identity.IsAuthenticated;
-            var user = Context.User.Identity.Name;
+            //Groups.Add(Context.ConnectionId, name);
             Console.WriteLine($"{Context.ConnectionId} connected");
-            return base.OnConnectedAsync();
+            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception? e)
@@ -45,6 +47,24 @@ namespace CC.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
             await Clients.Group(groupName).SendAsync("Send", $"{Context.ConnectionId} has left the group {groupName}.");
+        }
+
+        public async Task Join(string username)
+        {
+            if (!_connections.GetConnections(username).Contains(Context.ConnectionId))
+            {
+                _connections.Add(username, Context.ConnectionId);
+                await Clients.AllExcept(Context.ConnectionId).SendAsync("UserJoined", username, $"{username} joined the chat");
+            }
+        }
+
+        public async Task Leave(string username)
+        {
+            if (!_connections.GetConnections(username).Contains(Context.ConnectionId))
+            {
+                _connections.Remove(username, Context.ConnectionId);
+                await Clients.AllExcept(Context.ConnectionId).SendAsync("UserLeaved", username, $"{username} leaved the chat");
+            }
         }
 
         public string GetConnectionId()
