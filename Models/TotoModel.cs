@@ -1,4 +1,5 @@
-﻿using CC.Hubs;
+﻿using CC.Helpers;
+using CC.Hubs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ namespace CC.Models
 
         [Inject]
         protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
+        [Inject] protected ConnectedUser? ConnectedUser { get; set; }
 
         // flag to indicate chat status
         protected bool _isChatting = false;
@@ -54,6 +56,10 @@ namespace CC.Models
                 var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
                 _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
+                if (ConnectedUser != null && ConnectedUser.Member != null)
+                {
+                    _username = ConnectedUser.Member.Name;
+                }
             }
             else
             {
@@ -63,13 +69,6 @@ namespace CC.Models
 
         public async Task Chat()
         {
-            // check username is valid
-            if (string.IsNullOrWhiteSpace(_username))
-            {
-                _message = "Please enter a name";
-                return;
-            };
-
             try
             {
                 if (NavigationManager == null)

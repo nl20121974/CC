@@ -22,7 +22,7 @@ public partial class Member
     [StringLength(50)]
     public string Name { get; set; }
 
-    public DateTime Birthdate { get; set; }
+    public DateTime? Birthdate { get; set; }
 
     public int? Weight { get; set; }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CC.Data;
 using CC.Helpers;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace CC.Models
 {
@@ -32,10 +33,14 @@ namespace CC.Models
             if (ConnectedUser != null)
             {
                 ConnectedUser.Member = member;
+                if (NavigationManager != null)
+                {
+                    NavigationManager.NavigateTo("toto");
+                }
             }
         }
-        //[Inject]
-        //protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
+        [Inject]
+        protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
 
         override protected async Task OnInitializedAsync()
         {
@@ -45,42 +50,42 @@ namespace CC.Models
             {
                 throw new Exception("AuthenticationStateTask is null");
             }
-            //if (IdentityUserManager == null)
-            //{
-            //    throw new Exception("IdentityUserManager is null");
-            //}
-            //var user = (await AuthenticationStateTask).User;
-            //if (user.Identity != null && user.Identity.IsAuthenticated)
-            //{
-            //    var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
-            //    var currentUserId = currentUser.Id;
-            //    var currentUserEmail = currentUser.Email;
-            //    var currentUserPhone = currentUser.PhoneNumber;
-            //    var currentUserEmailConfirmed = currentUser.EmailConfirmed;
+            if (IdentityUserManager == null)
+            {
+                throw new Exception("IdentityUserManager is null");
+            }
+            var user = (await AuthenticationStateTask).User;
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
+                var currentUserId = currentUser.Id;
+                var currentUserEmail = currentUser.Email;
+                var currentUserPhone = currentUser.PhoneNumber;
+                var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
-            //    _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
+                _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
 
-            //    try
-            //    {
-            //        if (DbFactory != null && Context == null)
-            //        {
-            //            Context = DbFactory.CreateDbContext();
+                try
+                {
+                    if (DbFactory != null && Context == null)
+                    {
+                        Context = DbFactory.CreateDbContext();
 
-            //            if (Context is not null && Context.Members is not null)
-            //            {
-            //                Members = await Context.Members.ToListAsync();
-            //            }
-            //        }
-            //    }
-            //    finally
-            //    {
-            //        Busy = false;
-            //    }
-            //}
-            //else
-            //{
-            //    throw new Exception("User is not logged in");
-            //}
+                        if (Context is not null && Context.Members is not null)
+                        {
+                            Members = await Context.Members.ToListAsync();
+                        }
+                    }
+                }
+                finally
+                {
+                    Busy = false;
+                }
+            }
+            else
+            {
+                throw new Exception("User is not logged in");
+            }
 
             await base.OnInitializedAsync();
         }
