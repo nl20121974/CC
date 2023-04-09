@@ -12,8 +12,7 @@ namespace CC.Data;
 public partial class Member
 {
     [Key]
-    [Column("Member")]
-    public int Member1 { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [StringLength(450)]

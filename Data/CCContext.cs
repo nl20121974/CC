@@ -27,15 +27,8 @@ public partial class CCContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Album>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-        });
-
         modelBuilder.Entity<MediaTag>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.HasOne(d => d.Media).WithMany(p => p.MediaTags)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MediaTag_Media");
@@ -43,16 +36,9 @@ public partial class CCContext : DbContext
 
         modelBuilder.Entity<Medium>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.HasOne(d => d.Album).WithMany(p => p.Media)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Media_Album");
-        });
-
-        modelBuilder.Entity<Member>(entity =>
-        {
-            entity.Property(e => e.Member1).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Role>(entity =>
