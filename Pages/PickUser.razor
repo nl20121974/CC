@@ -2,12 +2,15 @@
 @inherits Models.PickUserModel
 
 <h3>PickUser</h3>
-@if (Users != null)
+@if (Members != null)
 {
     <ul>
-        @foreach (var user in Users)
+        @foreach (var member in Members)
         {
-            <li>@user.Nickname</li>
+            <li>
+
+                <button class="btn btn-primary" @onclick="()=>PickMember(member)">@member.Name</button>
+            </li>
         }
     </ul>
 }

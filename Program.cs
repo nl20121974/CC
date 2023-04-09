@@ -1,4 +1,5 @@
 using CC.Areas.Identity;
+using CC.Helpers;
 using CC.Hubs;
 using CC.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -34,6 +35,7 @@ builder.Services.AddDbContextFactory<CC.Data.CCContext>(opt => opt.UseSqlServer(
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+builder.Services.AddScoped<ConnectedUser>();
 //builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();

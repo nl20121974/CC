@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CC.Data;
+using CC.Helpers;
 
 namespace CC.Models
 {
@@ -10,7 +11,7 @@ namespace CC.Models
     {
         //private readonly CC.Data.CCContext _context;
         protected Boolean Busy { get; set; }
-        protected List<Member>? Users { get; set; } = new List<Member>();
+        protected List<Member>? Members { get; set; } = new List<Member>();
 
         //public PickUserModel(CC.Data.CCContext context)
         //{
@@ -19,12 +20,20 @@ namespace CC.Models
         protected CCContext? Context { get; set; }
         // name of the user who will be chatting
         protected string _username = string.Empty;
-        [Inject] NavigationManager? NavigationManager { get; set; }
-        [Inject] IDbContextFactory<CCContext>? DbFactory { get; set; }
+        [Inject] protected NavigationManager? NavigationManager { get; set; }
+        [Inject] protected IDbContextFactory<CCContext>? DbFactory { get; set; }
+        [Inject] protected ConnectedUser? ConnectedUser { get; set; }
 
         [CascadingParameter]
         protected Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
+        protected void PickMember(Member member)
+        {
+            if (ConnectedUser != null)
+            {
+                ConnectedUser.Member = member;
+            }
+        }
         //[Inject]
         //protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
 
@@ -59,7 +68,7 @@ namespace CC.Models
 
             //            if (Context is not null && Context.Members is not null)
             //            {
-            //                Users = await Context.Members.ToListAsync();
+            //                Members = await Context.Members.ToListAsync();
             //            }
             //        }
             //    }
