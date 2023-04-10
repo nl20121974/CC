@@ -1,11 +1,9 @@
 ﻿using CC.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace CC.Helpers
 {
     public class ConnectedUser
     {
-
         private Member? member;
 
         public Member? Member
@@ -18,8 +16,8 @@ namespace CC.Helpers
             }
         }
 
-        public event Action? OnChange;
-
         private void NotifyStateChanged() => OnChange?.Invoke();
+
+        public event Action? OnChange;
 }
 }

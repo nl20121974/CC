@@ -41,4 +41,8 @@ public partial class Member
     public bool? IsActive { get; set; }
 
     public int? Body { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Members")]
+    public virtual User User { get; set; }
 }

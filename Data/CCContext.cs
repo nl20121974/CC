@@ -25,8 +25,17 @@ public partial class CCContext : DbContext
 
     public virtual DbSet<RoleClaim> RoleClaims { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Album>(entity =>
+        {
+            entity.HasOne(d => d.User).WithMany(p => p.Albums)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Album_User");
+        });
+
         modelBuilder.Entity<MediaTag>(entity =>
         {
             entity.HasOne(d => d.Media).WithMany(p => p.MediaTags)
@@ -39,6 +48,17 @@ public partial class CCContext : DbContext
             entity.HasOne(d => d.Album).WithMany(p => p.Media)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Media_Album");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Media)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Media_User");
+        });
+
+        modelBuilder.Entity<Member>(entity =>
+        {
+            entity.HasOne(d => d.User).WithMany(p => p.Members)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Member_User");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -46,6 +66,13 @@ public partial class CCContext : DbContext
             entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
                 .IsUnique()
                 .HasFilter("([NormalizedName] IS NOT NULL)");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
         });
 
         OnModelCreatingPartial(modelBuilder);

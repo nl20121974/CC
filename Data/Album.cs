@@ -24,4 +24,8 @@ public partial class Album
 
     [InverseProperty("Album")]
     public virtual ICollection<Medium> Media { get; } = new List<Medium>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Albums")]
+    public virtual User User { get; set; }
 }

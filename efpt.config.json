@@ -37,6 +37,10 @@
       {
          "Name": "[dbo].[RoleClaim]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[User]",
+         "ObjectType": 0
       }
    ],
    "UiHint": "(localdb)\\MSSQLLocalDB.CC",

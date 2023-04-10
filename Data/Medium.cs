@@ -30,4 +30,8 @@ public partial class Medium
 
     [InverseProperty("Media")]
     public virtual ICollection<MediaTag> MediaTags { get; } = new List<MediaTag>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Media")]
+    public virtual User User { get; set; }
 }
