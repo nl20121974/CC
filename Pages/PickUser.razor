@@ -4,23 +4,13 @@
 <h3>PickUser</h3>
 @if (Members != null)
 {
-    <ul>
-        @foreach (var member in Members)
-        {
-            <li>
+    @foreach (var member in Members)
+    {
 
-                <button class="btn btn-primary" @onclick="()=>PickMember(member)">@member.Name</button>
-            </li>
-        }
-    </ul>
-
-    <MudCard>
-        <MudCardContent>
-            <MudText>Story of the day</MudText>
-            <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
-        </MudCardActions>
-    </MudCard>
+        <MudCard @onclick="()=>PickMember(member)">
+            <MudCardContent>
+                <MudText>@member.Name</MudText>
+            </MudCardContent>
+        </MudCard>
+    }
 }
