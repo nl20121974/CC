@@ -33,10 +33,7 @@ namespace CC.Models
             if (ConnectedUser != null)
             {
                 ConnectedUser.Member = member;
-                if (NavigationManager != null)
-                {
-                    NavigationManager.NavigateTo("toto");
-                }
+                NavigationManager?.NavigateTo("toto");
             }
         }
         [Inject]
@@ -58,10 +55,10 @@ namespace CC.Models
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
                 var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
-                var currentUserId = currentUser.Id;
-                var currentUserEmail = currentUser.Email;
-                var currentUserPhone = currentUser.PhoneNumber;
-                var currentUserEmailConfirmed = currentUser.EmailConfirmed;
+                //var currentUserId = currentUser.Id;
+                //var currentUserEmail = currentUser.Email;
+                //var currentUserPhone = currentUser.PhoneNumber;
+                //var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
                 _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
 
@@ -93,6 +90,7 @@ namespace CC.Models
         public void Dispose()
         {
             Context?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

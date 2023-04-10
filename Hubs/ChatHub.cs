@@ -9,7 +9,7 @@ namespace CC.Hubs
     public class ChatHub : Hub
     {
         public const string HubUrl = "/chat";
-        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
+        private readonly static ConnectionMapping<string> _connections = new();
 
         public async Task Broadcast(string username, string message)
         {
@@ -70,19 +70,6 @@ namespace CC.Hubs
         public string GetConnectionId()
         {
             return Context.ConnectionId;
-        }
-
-        private IIdentity getIdentity()
-        {
-            if (Context.User == null)
-            {
-                throw new Exception("Context.User is null");
-            }
-            if (Context.User.Identity == null)
-            {
-                throw new Exception("Context.User.Identity is null");
-            }
-            return Context.User.Identity;
         }
     }
 }

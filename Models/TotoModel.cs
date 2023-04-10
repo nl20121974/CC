@@ -50,10 +50,10 @@ namespace CC.Models
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
                 var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
-                var currentUserId = currentUser.Id;
-                var currentUserEmail = currentUser.Email;
-                var currentUserPhone = currentUser.PhoneNumber;
-                var currentUserEmailConfirmed = currentUser.EmailConfirmed;
+                //var currentUserId = currentUser.Id;
+                //var currentUserEmail = currentUser.Email;
+                //var currentUserPhone = currentUser.PhoneNumber;
+                //var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
                 _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
                 if (ConnectedUser != null && ConnectedUser.Member != null)
