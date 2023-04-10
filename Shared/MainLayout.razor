@@ -7,19 +7,18 @@
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
+        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Href="https://mudblazor.com/" Target="_blank" />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
         <AuthorizeView>
             <Authorized>
-                @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="Identity/Account/Manage" Target="_blank" />*@
                 <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
-                <form method="post" action="Identity/Account/Logout">
-                    <button type="submit" class="nav-link btn btn-link">Log out</button>
+                <form id="logoutForm" method="post" action="Identity/Account/Logout">
+                    <button type="submit" class="nav-link btn btn-link"><MudIcon Icon="@Icons.Material.Filled.Logout"></MudIcon></button>
                 </form>
             </Authorized>
             <NotAuthorized>
-                <a href="Identity/Account/Register">Register</a>
-                <a href="Identity/Account/Login">Log in</a>
+                <MudIconButton Icon="@Icons.Material.Filled.Login" Color="Color.Inherit" Href="Identity/Account/Login" Target="_blank" />
+                <MudIconButton Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" Href="Identity/Account/Register" Target="_blank" />
             </NotAuthorized>
         </AuthorizeView>
     </MudAppBar>
