@@ -4,13 +4,10 @@
 <h3>PickUser</h3>
 @if (Members != null)
 {
-    @foreach (var member in Members)
-    {
-
-        <MudCard @onclick="()=>PickMember(member)">
-            <MudCardContent>
-                <MudText>@member.Name</MudText>
-            </MudCardContent>
-        </MudCard>
-    }
+    <MudChipSet @bind-SelectedChip="selected" Filter="true" Mandatory="@mandatory">
+        @foreach (var member in Members)
+        {
+            <MudChip Text="grey">@member.Name</MudChip>
+        }
+    </MudChipSet>
 }

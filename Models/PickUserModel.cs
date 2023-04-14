@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using CC.Data;
 using CC.Helpers;
 using Microsoft.AspNetCore.Http.Extensions;
+using MudBlazor;
 
 namespace CC.Models
 {
@@ -13,12 +14,13 @@ namespace CC.Models
         //private readonly CC.Data.CCContext _context;
         protected Boolean Busy { get; set; }
         protected List<Member>? Members { get; set; } = new List<Member>();
-
-        //public PickUserModel(CC.Data.CCContext context)
-        //{
-        //    _context = context;
-        //}
-        protected CCContext? Context { get; set; }
+        protected bool mandatory = true;
+        protected MudChip? selected;
+    //public PickUserModel(CC.Data.CCContext context)
+    //{
+    //    _context = context;
+    //}
+    protected CCContext? Context { get; set; }
         // name of the user who will be chatting
         protected string _username = string.Empty;
         [Inject] protected NavigationManager? NavigationManager { get; set; }
