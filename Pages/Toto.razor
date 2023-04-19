@@ -1,15 +1,8 @@
 ﻿@page "/toto"
 @inherits Models.TotoModel
 
-<h1>Chat</h1>
-<hr />
 @if (!_isChatting)
 {
-    @*<p>
-        Enter your name to start chatting:
-    </p>*@
-
-    @*<input type="text" maxlength="32" @bind="@_username" />*@
     <button type="button" @onclick="@Chat"><span class="oi oi-chat" aria-hidden="true"></span> Chat!</button>
 
     // Error messages
@@ -29,20 +22,32 @@ else
     </div>
     // display messages
     <div id="scrollbox">
-        @foreach (var item in _messages)
-        {
-            @if (item.IsNotice)
+        <MudStack>
+            @foreach (var item in _messages)
             {
-                <div class="alert alert-info">@item.Body</div>
+                <MudPaper Class="pa-4">
+                    @if (item.IsNotice)
+                    {
+                        <MudStack Justify="Justify.Center" Spacing="0">
+                            <MudText Color="Color.Warning" Typo="Typo.body1">@item.Body</MudText>
+                        </MudStack>
+                    }
+                    else
+                    {
+                        <MudStack Row="true">
+                            <MudBadge Color="Color.Tertiary" Overlap="true" Bordered="true">
+                                <MudAvatar Image="images/mony.jpg" Size="Size.Medium" />
+                            </MudBadge>
+                            <MudStack Justify="Justify.Center" Spacing="0">
+                                <MudText Typo="Typo.body1">@item.Username</MudText>
+                                <MudText Typo="Typo.body2">@item.Body</MudText>
+                            </MudStack>
+                        </MudStack>
+                    }
+                </MudPaper>
             }
-            else
-            {
-                <div class="@item.CSS">
-                    <div class="user">@item.Username</div>
-                    <div class="msg">@item.Body</div>
-                </div>
-            }
-        }
+        </MudStack>
+        <MudImage Width="32" Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-pill" />
         <hr />
         <textarea class="input-lg" placeholder="enter your comment" @bind="@_newMessage"></textarea>
         <button class="btn btn-default" @onclick="@(() => SendAsync(_newMessage))">Send</button>

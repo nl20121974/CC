@@ -7,7 +7,7 @@
     <MudChipSet @bind-SelectedChip="selected" Filter="true" Mandatory="@mandatory">
         @foreach (var member in Members)
         {
-            <MudChip Text="grey">@member.Name</MudChip>
+            <MudChip Text="grey" OnClick="@(() => PickMember(member))">@member.Name</MudChip>
         }
     </MudChipSet>
 }

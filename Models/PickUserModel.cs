@@ -11,18 +11,14 @@ namespace CC.Models
 {
     public class PickUserModel : ComponentBase, IDisposable
     {
-        //private readonly CC.Data.CCContext _context;
         protected Boolean Busy { get; set; }
         protected List<Member>? Members { get; set; } = new List<Member>();
         protected bool mandatory = true;
         protected MudChip? selected;
-    //public PickUserModel(CC.Data.CCContext context)
-    //{
-    //    _context = context;
-    //}
-    protected CCContext? Context { get; set; }
-        // name of the user who will be chatting
+        protected CCContext? Context { get; set; }
+
         protected string _username = string.Empty;
+
         [Inject] protected NavigationManager? NavigationManager { get; set; }
         [Inject] protected IDbContextFactory<CCContext>? DbFactory { get; set; }
         [Inject] protected ConnectedUser? ConnectedUser { get; set; }
@@ -38,6 +34,7 @@ namespace CC.Models
                 NavigationManager?.NavigateTo("toto");
             }
         }
+
         [Inject]
         protected UserManager<IdentityUser>? IdentityUserManager { get; set; }
 
@@ -57,10 +54,6 @@ namespace CC.Models
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
                 var currentUser = await IdentityUserManager.GetUserAsync(user) ?? throw new Exception("User is null");
-                //var currentUserId = currentUser.Id;
-                //var currentUserEmail = currentUser.Email;
-                //var currentUserPhone = currentUser.PhoneNumber;
-                //var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
                 _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
 

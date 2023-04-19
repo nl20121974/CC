@@ -4,40 +4,46 @@
 
 <PageTitle>Weather forecast</PageTitle>
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
-
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
+    <MudItem xs="12">
+        <MudGrid Justify="Justify.FlexStart">
             @foreach (var forecast in forecasts)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+                <MudItem>
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderAvatar>
+                                <MudAvatar Color="Color.Secondary">I</MudAvatar>
+                            </CardHeaderAvatar>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.body1">@forecast.Date.ToShortDateString()</MudText>
+                                <MudText Typo="Typo.body2">@forecast.TemperatureC</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardMedia Image="images/pilars.jpg" Height="250" />
+                        <MudCardContent>
+                            <MudText Typo="Typo.body2">@forecast.Summary</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
             }
-        </tbody>
-    </table>
-}
+        </MudGrid>
+    </MudItem>
+    }
 
-@code {
+    @code {
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()

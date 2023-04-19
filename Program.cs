@@ -1,4 +1,5 @@
 using CC.Areas.Identity;
+using CC.Data;
 using CC.Helpers;
 using CC.Hubs;
 using CC.Identity;
@@ -15,11 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CC.Data.CCContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
+builder.Services.AddDbContext<CCContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
-builder.Services.AddDbContextFactory<CC.Data.CCContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddDbContextFactory<CCContext>(opt => opt.UseSqlServer(connectionString));
 //builder.Services.AddAuthentication()
 //   .AddGoogle(options =>
 //   {
@@ -32,13 +33,12 @@ builder.Services.AddDbContextFactory<CC.Data.CCContext>(opt => opt.UseSqlServer(
 //       microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
 //       microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
 //   });
-
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<ConnectedUser>();
 builder.Services.AddMudServices();
-//builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

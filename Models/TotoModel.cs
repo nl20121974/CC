@@ -59,6 +59,7 @@ namespace CC.Models
                 if (ConnectedUser != null && ConnectedUser.Member != null)
                 {
                     _username = ConnectedUser.Member.Name;
+                    await Chat();
                 }
             }
             else

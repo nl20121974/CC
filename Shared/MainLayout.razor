@@ -4,35 +4,49 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="1">
+    <MudAppBar Elevation="1" Color="Color.Transparent">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Href="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
+        @*<MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Href="https://mudblazor.com/" Target="_blank" />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Href="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />*@
         <AuthorizeView>
-            <Authorized>
-                <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+            @*<Authorized>
                 <form id="logoutForm" method="post" action="Identity/Account/Logout">
                     <button type="submit" class="nav-link btn btn-link"><MudIcon Icon="@Icons.Material.Filled.Logout"></MudIcon></button>
                 </form>
-            </Authorized>
+            </Authorized>*@
             <NotAuthorized>
                 <MudIconButton Icon="@Icons.Material.Filled.Login" Color="Color.Inherit" Href="Identity/Account/Login" Target="_blank" />
-                <MudIconButton Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" Href="Identity/Account/Register" Target="_blank" />
+                @*<MudIconButton Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" Href="Identity/Account/Register" Target="_blank" />*@
             </NotAuthorized>
         </AuthorizeView>
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="0">
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="1" ClipMode="DrawerClipMode.Docked">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">CC</MudText>
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-4">
             @Body
         </MudContainer>
-    </MudMainContent>
+    </MudMainContent>    
+    @*<MudTabs Elevation="2" Position="Position.Bottom" Rounded="true" Centered="true" Class="my-6" Color="Color.Default">
+        <MudTabPanel Icon="@Icons.Material.Filled.Api" Text="API" BadgeData='"!"' BadgeColor="Color.Error" />
+        <MudTabPanel Icon="@Icons.Material.Filled.Build" Text="Build" BadgeData="1" BadgeColor="Color.Success" />
+        <MudTabPanel Icon="@Icons.Material.Filled.BugReport" Text="Bugs" BadgeData="0" />
+        <MudTabPanel Icon="@Icons.Material.Filled.AccessTime" Text="Timing" BadgeDot="true" BadgeColor="Color.Error" />
+    </MudTabs>*@
+    <MudAppBar Bottom="true" Fixed="true" Color="Color.Transparent" Elevation="1">
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.Groups" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.Forum" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.Chat" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudSpacer />
+    </MudAppBar>
 </MudLayout>
 
 @code {
