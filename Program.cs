@@ -1,9 +1,11 @@
 using CC.Areas.Identity;
+using CC.Authorization;
 using CC.Data;
 using CC.Helpers;
 using CC.Hubs;
 using CC.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -39,6 +41,17 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddScoped<ConnectedUser>();
 builder.Services.AddMudServices();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<IAuthorizationHandler, ProfileOwnerHandler>();
+builder.Services.AddAuthorization(config => config.AddPolicy("ProfileOwner", policy => policy.Requirements.Add(new ProfileOwnerRequirement())));
+//builder.Services.AddScoped<XCookieAuthEvents>();
+
+//// optional: customize cookie expiration time
+//builder.Services.ConfigureApplicationCookie(ops =>
+//{
+//    ops.EventsType = typeof(XCookieAuthEvents);
+//    ops.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+//    ops.SlidingExpiration = true;
+//});
 
 var app = builder.Build();
 

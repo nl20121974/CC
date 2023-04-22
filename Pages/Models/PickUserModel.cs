@@ -7,11 +7,11 @@ using CC.Helpers;
 using Microsoft.AspNetCore.Http.Extensions;
 using MudBlazor;
 
-namespace CC.Models
+namespace CC.Pages.Models
 {
     public class PickUserModel : ComponentBase, IDisposable
     {
-        protected Boolean Busy { get; set; }
+        protected bool Busy { get; set; }
         protected List<Member>? Members { get; set; } = new List<Member>();
         protected bool mandatory = true;
         protected MudChip? selected;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace CC.Models
+namespace CC.Pages.Models
 {
     public class TotoModel : ComponentBase
     {

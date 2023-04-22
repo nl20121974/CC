@@ -35,11 +35,16 @@ else
                     else
                     {
                         <MudStack Row="true">
-                            <MudBadge Color="Color.Tertiary" Overlap="true" Bordered="true">
-                                <MudAvatar Image="images/mony.jpg" Size="Size.Medium" />
-                            </MudBadge>
+                            @*<MudBadge Icon="@Icons.Material.Filled.Female" Color="Color.Secondary" Overlap="true" Bordered="true" Class="mx-6 my-4">
+                                <MudImage Width="48" Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-pill" />
+                            </MudBadge>*@
+                            @*<MudBadge Color="Color.Tertiary" Overlap="true" Bordered="true">
+                                <MudAvatar Color="Color.Secondary"><MudIcon Icon="@Icons.Material.Filled.Female" Title="Favorite" /></MudAvatar>
+                                <MudImage Width="32" Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-pill" />
+                                <MudAvatar Color="Color.Primary"><MudIcon Icon="@Icons.Material.Filled.Male" Title="Favorite" /></MudAvatar>
+                            </MudBadge>*@
                             <MudStack Justify="Justify.Center" Spacing="0">
-                                <MudText Typo="Typo.body1">@item.Username</MudText>
+                                <MudLink Typo="Typo.body2">@item.Username</MudLink>
                                 <MudText Typo="Typo.body2">@item.Body</MudText>
                             </MudStack>
                         </MudStack>
@@ -47,7 +52,7 @@ else
                 </MudPaper>
             }
         </MudStack>
-        <MudImage Width="32" Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-pill" />
+
         <hr />
         <textarea class="input-lg" placeholder="enter your comment" @bind="@_newMessage"></textarea>
         <button class="btn btn-default" @onclick="@(() => SendAsync(_newMessage))">Send</button>
