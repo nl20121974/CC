@@ -43,6 +43,7 @@ builder.Services.AddMudServices();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IAuthorizationHandler, ProfileOwnerHandler>();
 builder.Services.AddAuthorization(config => config.AddPolicy("ProfileOwner", policy => policy.Requirements.Add(new ProfileOwnerRequirement())));
+builder.Services.AddHttpContextAccessor();
 //builder.Services.AddScoped<XCookieAuthEvents>();
 
 //// optional: customize cookie expiration time
@@ -78,7 +79,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapFallbackToPage("/Host");
 app.MapHub<ChatHub>(ChatHub.HubUrl);
 
 app.Run();
