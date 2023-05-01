@@ -112,7 +112,7 @@ namespace CC.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
-                HttpContext.Response.Cookies.Append("memberName", "Nico");
+                //HttpContext.Response.Cookies.Append("memberName", "Nico");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

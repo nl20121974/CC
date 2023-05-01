@@ -41,8 +41,8 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddScoped<ConnectedUser>();
 builder.Services.AddMudServices();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddSingleton<IAuthorizationHandler, ProfileOwnerHandler>();
-builder.Services.AddAuthorization(config => config.AddPolicy("ProfileOwner", policy => policy.Requirements.Add(new ProfileOwnerRequirement())));
+//builder.Services.AddSingleton<IAuthorizationHandler, ProfileOwnerHandler>();
+//builder.Services.AddAuthorization(config => config.AddPolicy("ProfileOwner", policy => policy.Requirements.Add(new ProfileOwnerRequirement())));
 builder.Services.AddHttpContextAccessor();
 //builder.Services.AddScoped<XCookieAuthEvents>();
 

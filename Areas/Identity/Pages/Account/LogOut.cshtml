@@ -8,6 +8,10 @@
         if (SignInManager.IsSignedIn(User))
         {
             await SignInManager.SignOutAsync();
+            if (!string.IsNullOrEmpty(Request.Cookies["memberName"]))
+            {
+                Response.Cookies.Delete("memberName");
+            }
         }
 
         return Redirect("~/");

@@ -6,6 +6,7 @@ using CC.Data;
 using CC.Helpers;
 using Microsoft.AspNetCore.Http.Extensions;
 using MudBlazor;
+using Microsoft.JSInterop;
 
 namespace CC.Pages.Models
 {
@@ -22,9 +23,21 @@ namespace CC.Pages.Models
         [Inject] protected NavigationManager? NavigationManager { get; set; }
         [Inject] protected IDbContextFactory<CCContext>? DbFactory { get; set; }
         [Inject] protected ConnectedUser? ConnectedUser { get; set; }
+        [Inject] protected IJSRuntime? JSRuntime { get; set; }
 
         [CascadingParameter]
         protected Task<AuthenticationState>? AuthenticationStateTask { get; set; }
+
+        protected async void PickMember2(Member member)
+        {
+            if (ConnectedUser != null)
+            {
+                CookiesManager cookiesManager = new CookiesManager(JSRuntime);
+                await cookiesManager.WriteCookie("memberName", member.Name);
+                ConnectedUser.Member = member;
+                NavigationManager?.NavigateTo("toto");
+            }
+        }
 
         protected void PickMember(Member member)
         {
