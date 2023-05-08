@@ -1,0 +1,29 @@
+﻿@page
+@using CC.Data;
+@model SetUserProfileModel
+@{
+    ViewData["Title"] = "Qui est-ce ?";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form id="userProfile" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+    <input asp-for="Input.MemberName" class="form-control" type="hidden" />
+    @foreach (UserProfile userProfile in Model.UserProfiles)
+    {
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@userProfile.Name</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a class="btn btn-primary" onclick="selectUserProfile('@userProfile.Name')">Select</a>
+            </div>
+        </div>
+    }
+</form>
+<script type="text/javascript">
+    function selectUserProfile(userProfileName) {
+        event.preventDefault();
+        document.getElementById('Input_MemberName').value = userProfileName;
+        document.getElementById('userProfile').submit();
+    }
+</script>

@@ -1,7 +1,4 @@
-﻿@inject NavigationManager? NavigationManager
-@inject IJSRuntime JsRuntime
-
-<CascadingAuthenticationState>
+﻿<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -15,19 +12,3 @@
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
-@code {
-
-    override protected async Task OnInitializedAsync()
-    {
-    }
-
-    protected override Task OnAfterRenderAsync(bool firstRender)
-    {
-        string cookieValue = JsRuntime.InvokeAsync<string>("ReadCookie.ReadCookie", "memberName").Result;
-        if (string.IsNullOrEmpty(cookieValue))
-        {
-            NavigationManager?.NavigateTo("pickuser");
-        }
-        return base.OnAfterRenderAsync(firstRender);
-    }
-}

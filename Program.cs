@@ -18,11 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CCContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
-builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Singleton);
+builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
-builder.Services.AddDbContextFactory<CCContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddDbContextFactory<DataContext>(opt => opt.UseSqlServer(connectionString));
 //builder.Services.AddAuthentication()
 //   .AddGoogle(options =>
 //   {
@@ -39,6 +39,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<ConnectedUser>();
+builder.Services.AddScoped<ConnectedUserList>();
+builder.Services.AddScoped<HubConnectionCollection>();
 builder.Services.AddMudServices();
 builder.Services.AddSingleton<WeatherForecastService>();
 //builder.Services.AddSingleton<IAuthorizationHandler, ProfileOwnerHandler>();

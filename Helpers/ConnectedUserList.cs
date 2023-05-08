@@ -2,17 +2,12 @@
 
 namespace CC.Helpers
 {
-    public class ConnectedUserList
+    public class ConnectedUserList : ObservableCollection<ConnectedUser>
     {
-
-        private readonly ObservableCollection<ConnectedUser> list = new();
-
         public ConnectedUserList()
         {
-            list.CollectionChanged += (s, e) => NotifyStateChanged();
+            CollectionChanged += (s, e) => OnChange?.Invoke();
         }
-
-        private void NotifyStateChanged() => OnChange?.Invoke();
 
         public event Action? OnChange;
     }

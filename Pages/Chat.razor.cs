@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace CC.Pages.Models
+namespace CC.Pages
 {
-    public class TotoModel : ComponentBase
+    public class ChatModel : ComponentBase
     {
         [Inject] NavigationManager? NavigationManager { get; set; }
 
@@ -56,9 +56,9 @@ namespace CC.Pages.Models
                 //var currentUserEmailConfirmed = currentUser.EmailConfirmed;
 
                 _username = currentUser.Email ?? throw new Exception("currentUser.Email is null");
-                if (ConnectedUser != null && ConnectedUser.Member != null)
+                if (ConnectedUser != null && ConnectedUser.UserProfile != null)
                 {
-                    _username = ConnectedUser.Member.Name;
+                    _username = ConnectedUser.UserProfile.Name;
                     await Chat();
                 }
             }

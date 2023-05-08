@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CC.Data;
 
-[Table("Member")]
-public partial class Member
+[Table("UserProfile")]
+public partial class UserProfile
 {
     [Key]
     public int Id { get; set; }
@@ -42,7 +42,9 @@ public partial class Member
 
     public int? Body { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("Members")]
-    public virtual User User { get; set; }
+    [InverseProperty("UserProfile")]
+    public virtual ICollection<UserGroupProfile> UserGroupProfiles { get; set; } = new List<UserGroupProfile>();
+
+    [InverseProperty("UserProfile")]
+    public virtual ICollection<UserMediumProfile> UserMediumProfiles { get; set; } = new List<UserMediumProfile>();
 }

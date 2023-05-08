@@ -8,19 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CC.Data;
 
-[Table("MediaTag")]
-public partial class MediaTag
+[Table("UserAlbum")]
+public partial class UserAlbum
 {
     [Key]
     public int Id { get; set; }
 
-    public int MediaId { get; set; }
+    [Required]
+    [StringLength(450)]
+    public string UserId { get; set; }
 
-    public int MemberId { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
 
-    public bool HasAuthorized { get; set; }
-
-    [ForeignKey("MediaId")]
-    [InverseProperty("MediaTags")]
-    public virtual Medium Media { get; set; }
+    [ForeignKey("Id")]
+    [InverseProperty("UserAlbum")]
+    public virtual UserMedium IdNavigation { get; set; }
 }

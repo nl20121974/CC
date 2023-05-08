@@ -4,14 +4,14 @@ namespace CC.Helpers
 {
     public class ConnectedUser
     {
-        private Member? member;
+        private UserProfile? userProfile;
 
-        public Member? Member
+        public UserProfile? UserProfile
         {
-            get => member;
+            get => userProfile;
             set
             {
-                member = value;
+                userProfile = value;
                 NotifyStateChanged();
             }
         }

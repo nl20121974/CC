@@ -102,7 +102,7 @@ namespace CC.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/pickuser");
+            returnUrl ??= Url.Content("./SetUserProfile");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -116,7 +116,8 @@ namespace CC.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    //return LocalRedirect(returnUrl);
+                    return RedirectToPage("./SetUserProfile");
                 }
                 if (result.RequiresTwoFactor)
                 {

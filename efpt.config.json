@@ -1,6 +1,6 @@
 ﻿{
    "CodeGenerationMode": 3,
-   "ContextClassName": "CCContext",
+   "ContextClassName": "DataContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
@@ -15,31 +15,31 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[Album]",
+         "Name": "[dbo].[UserAlbum]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Media]",
+         "Name": "[dbo].[UserGroup]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[MediaTag]",
+         "Name": "[dbo].[UserGroupMessage]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Member]",
+         "Name": "[dbo].[UserGroupProfile]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Role]",
+         "Name": "[dbo].[UserMedium]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[RoleClaim]",
+         "Name": "[dbo].[UserMediumProfile]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[User]",
+         "Name": "[dbo].[UserProfile]",
          "ObjectType": 0
       }
    ],
