@@ -16,15 +16,13 @@ public partial class UserGroup
 
     public int UserGroupId { get; set; }
 
-    [Required]
-    [StringLength(450)]
-    public string UserId { get; set; }
+    public int UserId { get; set; }
 
     [ForeignKey("UserId")]
     [InverseProperty("UserGroups")]
     public virtual User User { get; set; }
 
-    [InverseProperty("UserGroupProfile")]
+    [InverseProperty("UserGroup")]
     public virtual ICollection<UserGroupMessage> UserGroupMessages { get; set; } = new List<UserGroupMessage>();
 
     [ForeignKey("UserGroupId")]

@@ -12,7 +12,7 @@ namespace CC.Data;
 public partial class User
 {
     [Key]
-    public string Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [StringLength(50)]
@@ -26,4 +26,7 @@ public partial class User
 
     [InverseProperty("User")]
     public virtual ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
 }

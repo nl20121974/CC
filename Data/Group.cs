@@ -22,7 +22,7 @@ public partial class Group
     [StringLength(50)]
     public string Code { get; set; }
 
-    [InverseProperty("UserGroup")]
+    [InverseProperty("Group")]
     public virtual ICollection<UserGroupMessage> UserGroupMessages { get; set; } = new List<UserGroupMessage>();
 
     [InverseProperty("UserGroupNavigation")]

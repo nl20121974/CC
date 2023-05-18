@@ -14,18 +14,24 @@ public partial class UserGroupMessage
     [Key]
     public int Id { get; set; }
 
-    public int UserGroupId { get; set; }
+    public int GroupId { get; set; }
 
-    public int UserGroupProfileId { get; set; }
+    public int UserGroupId { get; set; }
 
     [Required]
     public string Message { get; set; }
 
+    public int UserProfileId { get; set; }
+
+    [ForeignKey("GroupId")]
+    [InverseProperty("UserGroupMessages")]
+    public virtual Group Group { get; set; }
+
     [ForeignKey("UserGroupId")]
     [InverseProperty("UserGroupMessages")]
-    public virtual Group UserGroup { get; set; }
+    public virtual UserGroup UserGroup { get; set; }
 
-    [ForeignKey("UserGroupProfileId")]
+    [ForeignKey("UserProfileId")]
     [InverseProperty("UserGroupMessages")]
-    public virtual UserGroup UserGroupProfile { get; set; }
+    public virtual UserProfile UserProfile { get; set; }
 }

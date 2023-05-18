@@ -12,11 +12,9 @@ namespace CC.Data;
 public partial class UserProfile
 {
     [Key]
-    public string Id { get; set; }
+    public int Id { get; set; }
 
-    [Required]
-    [StringLength(450)]
-    public string UserId { get; set; }
+    public int UserId { get; set; }
 
     [Required]
     [StringLength(50)]
@@ -41,6 +39,13 @@ public partial class UserProfile
     public bool? IsActive { get; set; }
 
     public int? Body { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("UserProfiles")]
+    public virtual User User { get; set; }
+
+    [InverseProperty("UserProfile")]
+    public virtual ICollection<UserGroupMessage> UserGroupMessages { get; set; } = new List<UserGroupMessage>();
 
     [InverseProperty("UserNavigation")]
     public virtual ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
