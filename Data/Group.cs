@@ -8,24 +8,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CC.Data;
 
-[Table("UserGroupProfile")]
-public partial class UserGroupProfile
+[Table("Group")]
+public partial class Group
 {
     [Key]
     public int Id { get; set; }
 
-    public int UserGroupId { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
 
-    public int UserProfileId { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string Code { get; set; }
 
-    [ForeignKey("UserGroupId")]
-    [InverseProperty("UserGroupProfiles")]
-    public virtual UserGroup UserGroup { get; set; }
-
-    [InverseProperty("UserGroupProfile")]
+    [InverseProperty("UserGroup")]
     public virtual ICollection<UserGroupMessage> UserGroupMessages { get; set; } = new List<UserGroupMessage>();
 
-    [ForeignKey("UserProfileId")]
-    [InverseProperty("UserGroupProfiles")]
-    public virtual UserProfile UserProfile { get; set; }
+    [InverseProperty("UserGroupNavigation")]
+    public virtual ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
 }

@@ -12,7 +12,7 @@ namespace CC.Data;
 public partial class UserProfile
 {
     [Key]
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     [Required]
     [StringLength(450)]
@@ -42,8 +42,8 @@ public partial class UserProfile
 
     public int? Body { get; set; }
 
-    [InverseProperty("UserProfile")]
-    public virtual ICollection<UserGroupProfile> UserGroupProfiles { get; set; } = new List<UserGroupProfile>();
+    [InverseProperty("UserNavigation")]
+    public virtual ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
 
     [InverseProperty("UserProfile")]
     public virtual ICollection<UserMediumProfile> UserMediumProfiles { get; set; } = new List<UserMediumProfile>();

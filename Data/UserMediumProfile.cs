@@ -16,7 +16,9 @@ public partial class UserMediumProfile
 
     public int UserMediumId { get; set; }
 
-    public int UserProfileId { get; set; }
+    [Required]
+    [StringLength(450)]
+    public string UserProfileId { get; set; }
 
     [ForeignKey("UserMediumId")]
     [InverseProperty("UserMediumProfiles")]

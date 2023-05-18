@@ -23,9 +23,9 @@ public partial class UserGroupMessage
 
     [ForeignKey("UserGroupId")]
     [InverseProperty("UserGroupMessages")]
-    public virtual UserGroup UserGroup { get; set; }
+    public virtual Group UserGroup { get; set; }
 
     [ForeignKey("UserGroupProfileId")]
     [InverseProperty("UserGroupMessages")]
-    public virtual UserGroupProfile UserGroupProfile { get; set; }
+    public virtual UserGroup UserGroupProfile { get; set; }
 }

@@ -13,13 +13,15 @@ public partial class DataContext : DbContext
     {
     }
 
+    public virtual DbSet<Group> Groups { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
     public virtual DbSet<UserAlbum> UserAlbums { get; set; }
 
     public virtual DbSet<UserGroup> UserGroups { get; set; }
 
     public virtual DbSet<UserGroupMessage> UserGroupMessages { get; set; }
-
-    public virtual DbSet<UserGroupProfile> UserGroupProfiles { get; set; }
 
     public virtual DbSet<UserMedium> UserMedia { get; set; }
 
@@ -38,20 +40,32 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.IdNavigation).WithOne(p => p.UserAlbum)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserAlbum_UserMedium");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserAlbums)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserAlbum_User");
         });
 
         modelBuilder.Entity<UserGroup>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_Group");
+            entity.HasKey(e => e.Id).HasName("PK_GroupUser");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasOne(d => d.UserGroupNavigation).WithMany(p => p.UserGroups)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Group_UserGroup");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserGroups)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserGroup_User");
+
+            entity.HasOne(d => d.UserNavigation).WithMany(p => p.UserGroups)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserGroupProfile_UserProfile");
         });
 
         modelBuilder.Entity<UserGroupMessage>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_GroupMessage");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.UserGroup).WithMany(p => p.UserGroupMessages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -60,21 +74,6 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.UserGroupProfile).WithMany(p => p.UserGroupMessages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserGroupMessage_UserGroupProfile");
-        });
-
-        modelBuilder.Entity<UserGroupProfile>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_GroupUser");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.UserGroup).WithMany(p => p.UserGroupProfiles)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserGroupProfile_UserGroup");
-
-            entity.HasOne(d => d.UserProfile).WithMany(p => p.UserGroupProfiles)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserGroupProfile_UserProfile");
         });
 
         modelBuilder.Entity<UserMedium>(entity =>

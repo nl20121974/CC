@@ -25,4 +25,8 @@ public partial class UserAlbum
     [ForeignKey("Id")]
     [InverseProperty("UserAlbum")]
     public virtual UserMedium IdNavigation { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("UserAlbums")]
+    public virtual User User { get; set; }
 }
