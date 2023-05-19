@@ -25,6 +25,6 @@ public partial class Group
     [InverseProperty("Group")]
     public virtual ICollection<UserGroupMessage> UserGroupMessages { get; set; } = new List<UserGroupMessage>();
 
-    [InverseProperty("UserGroupNavigation")]
+    [InverseProperty("Group")]
     public virtual ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
 }

@@ -37,7 +37,7 @@ namespace CC.Authorization
             return true;
             // compare the requested memberId to the user's actual claim of 
             // memberId
-            //  var isAuthorized = context.User.GetMemberIdClaim();
+            //  var isAuthorized = context.Users.GetMemberIdClaim();
             // now we know if the user is authorized or not, and can act 
             // accordingly
 

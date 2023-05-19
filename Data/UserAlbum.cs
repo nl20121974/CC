@@ -14,7 +14,9 @@ public partial class UserAlbum
     [Key]
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    [Required]
+    [StringLength(450)]
+    public string UserId { get; set; }
 
     [Required]
     [StringLength(50)]

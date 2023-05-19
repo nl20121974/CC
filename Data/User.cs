@@ -9,17 +9,43 @@ using Microsoft.EntityFrameworkCore;
 namespace CC.Data;
 
 [Table("User")]
+[Index("NormalizedEmail", Name = "EmailIndex")]
 public partial class User
 {
     [Key]
-    public int Id { get; set; }
+    public string Id { get; set; }
 
-    [Required]
-    [StringLength(50)]
+    [StringLength(256)]
     public string UserName { get; set; }
 
-    [StringLength(50)]
-    public string Location { get; set; }
+    [StringLength(256)]
+    public string NormalizedUserName { get; set; }
+
+    [StringLength(256)]
+    public string Email { get; set; }
+
+    [StringLength(256)]
+    public string NormalizedEmail { get; set; }
+
+    public bool EmailConfirmed { get; set; }
+
+    public string PasswordHash { get; set; }
+
+    public string SecurityStamp { get; set; }
+
+    public string ConcurrencyStamp { get; set; }
+
+    public string PhoneNumber { get; set; }
+
+    public bool PhoneNumberConfirmed { get; set; }
+
+    public bool TwoFactorEnabled { get; set; }
+
+    public DateTimeOffset? LockoutEnd { get; set; }
+
+    public bool LockoutEnabled { get; set; }
+
+    public int AccessFailedCount { get; set; }
 
     [InverseProperty("User")]
     public virtual ICollection<UserAlbum> UserAlbums { get; set; } = new List<UserAlbum>();

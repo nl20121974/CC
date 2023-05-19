@@ -33,7 +33,9 @@ public partial class DataContext : DbContext
     {
         modelBuilder.Entity<User>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
         });
 
         modelBuilder.Entity<UserAlbum>(entity =>
@@ -55,17 +57,13 @@ public partial class DataContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_GroupUser");
 
-            entity.HasOne(d => d.UserGroupNavigation).WithMany(p => p.UserGroups)
+            entity.HasOne(d => d.Group).WithMany(p => p.UserGroups)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Group_UserGroup");
+                .HasConstraintName("FK_Group_User");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserGroups)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserGroup_User");
-
-            entity.HasOne(d => d.UserNavigation).WithMany(p => p.UserGroups)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserGroupProfile_UserProfile");
         });
 
         modelBuilder.Entity<UserGroupMessage>(entity =>
@@ -108,8 +106,6 @@ public partial class DataContext : DbContext
         modelBuilder.Entity<UserProfile>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Member");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.User).WithMany(p => p.UserProfiles)
                 .OnDelete(DeleteBehavior.ClientSetNull)

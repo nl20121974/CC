@@ -21,7 +21,9 @@ public partial class UserGroupMessage
     [Required]
     public string Message { get; set; }
 
-    public int UserProfileId { get; set; }
+    [Required]
+    [StringLength(450)]
+    public string UserProfileId { get; set; }
 
     [ForeignKey("GroupId")]
     [InverseProperty("UserGroupMessages")]
