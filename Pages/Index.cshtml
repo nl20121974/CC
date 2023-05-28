@@ -1,5 +1,8 @@
 ﻿@page
 @model CC.Pages.IndexModel
+@using CC.Localization
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource2> Locale
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +12,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    @*<a asp-page="Create">@Locale.GetString("CreateNew")</a>*@
 </p>
 <table class="table">
     <thead>
